@@ -128,31 +128,43 @@ A popular restaurant wants to manage reservations, orders, and billing.
 - Waiters assigned to serve reservations.
 
 ### ER Diagram:
-*Paste or attach your diagram here*  
-![ER Diagram](er_diagram_restaurant.png)
+
+<img width="1502" height="772" alt="image" src="https://github.com/user-attachments/assets/b17048db-0d17-460c-b83d-6fe5223c4d18" />
 
 ### Entities and Attributes
 
-| Entity | Attributes (PK, FK) | Notes |
-|--------|--------------------|-------|
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
+
+| **Entity**      | **Attributes (PK, FK)**                                                   | **Notes**                                                                          |
+| --------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **Customer**    | **Customer_ID (PK)**, Name, Phone_No, Email                               | Stores customer information.                                                       |
+| **Reservation** | **Reservation_ID (PK)**, Reservation_Date, Reservation_Time, No_of_Guests | Stores reservation details.                                                        |
+| **Order**       | **Order_ID (PK)**, Order_Time, No_of_Orders, Specifications               | Stores customer food orders.                                                       |
+| **Dish**        | **Dish_Name (PK)**, Price, Calories, Availability_Status                  | Stores menu item details. |
+| **Bill**        | **Bill_ID (PK)**, Food_Charge, Service_Charge, Discount, Total_Amount     | Stores billing information.                                                        |
+| **Waiter**      | **Waiter_ID (PK)**, Waiter_Name, Phone_No, Shift                          | Stores waiter details.                                                             |
 
 ### Relationships and Constraints
 
-| Relationship | Cardinality | Participation | Notes |
-|--------------|------------|---------------|-------|
-|              |            |               |       |
-|              |            |               |       |
-|              |            |               |       |
+
+| **Relationship**               | **Cardinality** | **Participation**                       | **Notes**                                                                           |
+| ------------------------------ | --------------- | --------------------------------------- | ----------------------------------------------------------------------------------- |
+| Customer **Makes** Reservation | **1 : N**       | Total (Reservation), Partial (Customer) | One customer can make many reservations. Every reservation belongs to one customer. |
+| Reservation **Places** Order   | **1 : N**       | Total                                   | One reservation may have multiple food orders.                                      |
+| Order **Contains** Dish        | **M : N**       | Total                                   | An order contains many dishes, and a dish can appear in many orders.                |
+| Reservation **Generates** Bill | **1 : 1**       | Total                                   | Each reservation generates exactly one bill.                                        |
+| Waiter **Serves** Bill         | **1 : N**       | Partial (Waiter), Total (Bill)          | One waiter can serve many bills, but each bill is handled by one waiter.            |
 
 ### Assumptions
-- 
-- 
-- 
+
+1.	Every customer has a unique Customer_ID. 
+2.	A customer can make multiple reservations, but each reservation belongs to only one customer. 
+3.	Each reservation is identified by a unique Reservation_ID. 
+4.	A reservation can have one or more food orders. 
+5.	An order may contain multiple dishes, and the same dish can appear in multiple orders. 
+6.	Every dish has a unique Dish_Name and belongs to a restaurant menu. 
+7.	One bill is generated for each reservation. 
+8.	Each bill includes food charges, service charges, and any applicable discount. 
+9.	One waiter can serve many bills/reservations, but each bill is handled by only one waiter.
 
 ---
 
