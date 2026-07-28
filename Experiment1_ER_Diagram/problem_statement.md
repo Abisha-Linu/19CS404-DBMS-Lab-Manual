@@ -74,31 +74,43 @@ The Central Library wants to manage book lending and cultural events.
 - Overdue fines apply for late returns.
 
 ### ER Diagram:
-*Paste or attach your diagram here*  
-![ER Diagram](er_diagram_library.png)
+
+<img width="1361" height="822" alt="image" src="https://github.com/user-attachments/assets/a9f00eb3-7bf7-405c-aa10-74e805fd033e" />
+
 
 ### Entities and Attributes
 
-| Entity | Attributes (PK, FK) | Notes |
-|--------|--------------------|-------|
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
+| Entity            | Attributes (PK, FK)                                                                    | Notes                                                       |
+| ----------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| **Member**        | **Member_ID (PK)**, Name, Email, Phone_No, Membership_Status                           | Stores information about library members.                   |
+| **Book**          | **Book_ID (PK)**, Title, Author, Publisher, Edition, Language                          | Stores details of all books available in the library.       |
+| **Borrow_Record** | **Borrow_ID (PK)**, Member_ID (FK), Book_ID (FK), Due_Date, Return_Date, Borrow_Status | Records every book borrowing transaction.                   |
+| **Event**         | **Event_ID (PK)**, Event_Name, Event_Date, Start_Time, End_Time                        | Stores information about library events.                    |
+| **Speaker**       | **Speaker_ID (PK)**, Speaker_Name, Qualification, Phone_No                             | Stores details of speakers/authors participating in events. |
+| **Fine**          | **Payment_ID (PK)**, Borrow_ID (FK), Amount, Fine_Date, Payment_Date, Payment_Status   | Stores overdue fine details for late book returns.          |
 
 ### Relationships and Constraints
 
-| Relationship | Cardinality | Participation | Notes |
-|--------------|------------|---------------|-------|
-|              |            |               |       |
-|              |            |               |       |
-|              |            |               |       |
+
+| Relationship                         | Cardinality | Participation                           | Notes                                                                                      |
+| ------------------------------------ | ----------- | --------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **Member — Borrows — Borrow_Record** | 1 : N       | Partial (Member), Total (Borrow_Record) | One member can have many borrow records; each borrow record belongs to one member.         |
+| **Borrow_Record — For — Book**       | N : 1       | Total                                   | Each borrow record refers to one book; a book can appear in many borrow records over time. |
+| **Borrow_Record — Generates — Fine** | 1 : 0..1    | Partial                                 | A borrow record generates a fine only if the book is returned late.                        |
+| **Member — Registers — Event**       | M : N       | Partial                                 | Members may register for multiple events, and an event may have many registered members.   |
+| **Event — Has — Speaker**            | M : N       | Total (Event), Partial (Speaker)        | Every event has one or more speakers, while a speaker may participate in multiple events.  |
 
 ### Assumptions
-- 
-- 
-- 
+1.	Every member has a unique Member_ID. 
+2.	Every book has a unique Book_ID. 
+3.	A member can borrow multiple books, but each borrow record refers to only one book. 
+4.	Borrow details such as loan date, due date, and return date are stored in Borrow_Record. 
+5.	A fine is generated only if a book is returned after the due date. 
+6.	Members can register for multiple events. 
+7.	Each event may have multiple speakers. 
+8.	A speaker may participate in multiple library events. 
+9.	All primary keys are unique and cannot be NULL. 
+10.	One borrow record can generate at most one fine.
 
 ---
 
