@@ -1,5 +1,7 @@
 # Experiment 5: Subqueries and Views
 
+## NAME: ABISHA LINU L
+## REGISTER NUMBER: 212224040011
 ## AIM
 To study and implement subqueries and views.
 
